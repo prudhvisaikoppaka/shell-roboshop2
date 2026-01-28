@@ -34,6 +34,9 @@ app_setup(){
    cd /app
    unzip /tmp/$app_name.zip &>>$LOG_FILE
    VALIDATE $? "Unziping $app_name"
+
+   npm install &>>$LOG_FILE
+   VALIDATE $? "Installing dependencies"
 }
 
 nodejs_setup(){
@@ -46,8 +49,8 @@ nodejs_setup(){
       dnf install nodejs -y &>>$LOG_FILE
       VALIDATE $? "Installing nodejs:20"
 
-      npm install &>>$LOG_FILE
-      VALIDATE $? "Installing dependencies" 
+      # npm install &>>$LOG_FILE
+      # VALIDATE $? "Installing dependencies" 
 }
 
 systemd_setup(){
@@ -88,5 +91,5 @@ VALIDATE(){
 print_time(){
    END_TIME=$(date +%s)
    TOTAL_TIME=$(($END_TIME - $START_TIME))
-   echo -e "Script executed successfully, $Y Time taken: $TOTAL_TIME seconds $N"
+   echo -e "Script executed successfully, $Y Time taken: $TOTAL_TIME seconds $N" | tee -a $LOG_FILE
 }
