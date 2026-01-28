@@ -35,8 +35,8 @@ app_setup(){
    unzip /tmp/$app_name.zip &>>$LOG_FILE
    VALIDATE $? "Unziping $app_name"
 
-   npm install &>>$LOG_FILE
-   VALIDATE $? "Installing dependencies"
+   # npm install &>>$LOG_FILE
+   # VALIDATE $? "Installing dependencies"
 }
 
 nodejs_setup(){
@@ -56,7 +56,7 @@ nodejs_setup(){
 maven_setup(){
       dnf install maven -y &>>$LOG_FILE
       VALIDATE $? "Installing Maven and Java"
-      
+
       mvn clean package &>>$LOG_FILE
       VALIDATE $? "Packaging the shipping application"
 
