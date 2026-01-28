@@ -1,6 +1,12 @@
 #!/bin/bash
 
 source ./common.sh
+app_name=mysql
+
+check_root
+
+echo "Please enter root password to setup"
+read -s MYSQL_ROOT_PASSWORD
 
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "Installing MySQL server"
@@ -14,7 +20,4 @@ VALIDATE $? "Starting MySQL"
 mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD &>>$LOG_FILE
 VALIDATE $? "Setting MySQL Root Password"
 
-END_TIME=$(date +%s)
-TOTAL_TIME=$(( $END_TIME - $START_TIME ))
-
-echo -e "Script execution completed successfully, $Y time taken: $TOTAL_TIME seconds $N" | tee -a $LOG_FILE
+print_time
